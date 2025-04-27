@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vida, aceita casar comigo? 💍</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.5s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .ring {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+            background: url('https://cdn.pixabay.com/photo/2017/08/02/00/52/ring-2569570_960_720.png') no-repeat center;
+            background-size: contain;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .btn-yes, .btn-no {
+            padding: 15px 40px;
+            margin: 10px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-yes {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.5);
+        }
+
+        .btn-no {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.7);
+        }
+
+        .btn-no:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .final-message {
+            font-size: 2rem;
+            color: gold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            margin-top: 30px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .show-final {
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            p {
+                font-size: 1.2rem;
+            }
+            .ring {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    
+    <div class="container" id="container">
+        <div class="ring"></div>
+        <h1>Vida </h1>
+        <p>Você é o amor da minha vida e eu quero passar eternidade ao seu lado.</p>
+        <p>Aceita casar comigo?</p>
+        <div>
+            <button class="btn-yes" id="btnYes">SIM! 💍</button>
+            <button class="btn-no" id="btnNo">Não</button>
+        </div>
+        <div class="final-message" id="finalMessage">TE AMO, MEU DOCINHO DE LEITE! ❤️</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('container');
+            const btnYes = document.getElementById('btnYes');
+            const btnNo = document.getElementById('btnNo');
+            const finalMessage = document.getElementById('finalMessage');
+            const stars = document.getElementById('stars');
+
+            // Criar estrelas de fundo
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = (Math.random() * 3 + 1) + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = (Math.random() * 3) + 's';
+                stars.appendChild(star);
+            }
+
+            // Mostrar container
+            setTimeout(() => {
+                container.classList.add('show');
+            }, 500);
+
+            // Botão SIM
+            btnYes.addEventListener('click', function() {
+                finalMessage.classList.add('show-final');
+                btnYes.classList.add('hidden');
+                btnNo.classList.add('hidden');
+                
+                // Efeito de confete
+                for (let i = 0; i < 150; i++) {
+                    createConfetti();
+                }
+            });
+
+            // Botão NÃO (foge do cursor)
+            btnNo.addEventListener('mouseover', function() {
+                btnNo.style.position = 'absolute';
+                btnNo.style.left = Math.random() * 80 + '%';
+                btnNo.style.top = Math.random() * 80 + '%';
+            });
+
+            // Criar confete
+            function createConfetti() {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '15px';
+                confetti.style.height = '15px';
+                confetti.style.background = ['#ff6b6b', '#ffb347', '#4cc9f0', '#7b2cbf', '#f72585'][Math.floor(Math.random() * 5)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-20px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                confetti.style.zIndex = '100';
+                
+                document.body.appendChild(confetti);
+                
+                const animationDuration = Math.random() * 3 + 2;
+                
+                confetti.animate([
+                    { top: '-20px', opacity: 1 },
+                    { top: '100vh', opacity: 0 }
+                ], {
+                    duration: animationDuration * 1000,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+                });
+                
+                setTimeout(() => confetti.remove(), animationDuration * 1000);
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
